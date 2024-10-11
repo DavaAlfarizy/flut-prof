@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Mengimpor halaman utama (main.dart)
+import 'main.dart'; // Mengimpor halaman utama (home.dart)
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,22 +7,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Controller untuk menangkap data dari text field
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+final TextEditingController _namaController = TextEditingController();
+final TextEditingController _sekolahController = TextEditingController();
+final TextEditingController _deskripsiController = TextEditingController();
+final TextEditingController _roleController = TextEditingController();
+
 
   // Fungsi untuk login
   void login() {
-    String email = emailController.text;
-    String password = passwordController.text;
+    String nama = _namaController.text;
+    String sekolah = _sekolahController.text;
+    String role = _roleController.text;
+    String deskripsi = _deskripsiController.text;
 
     // Validasi sederhana
-    if (email.isEmpty || password.isEmpty) {
+    if (nama.isEmpty || sekolah.isEmpty || role.isEmpty || deskripsi.isEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Error"),
-          content: Text("Email atau password tidak boleh kosong"),
+          content: Text("Semua field harus diisi"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),
@@ -32,13 +36,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     } else {
-      // Jika login berhasil, navigasi ke halaman utama
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => home(), // Mengarahkan ke home di main.dart
-        ),
-      );
+      // Jika login berhasil, navigasi ke halaman home dengan mengirim data
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(
+    builder: (context) => Home(
+      nama: _namaController.text, // atau data yang Anda terima dari form
+      sekolah: _sekolahController.text, // atau data yang Anda terima dari form
+      deskripsi: _deskripsiController.text, // jika ada field deskripsi
+      role: _roleController.text, // jika ada field role
+    ),
+  ),
+);
+
     }
   }
 
@@ -54,35 +64,36 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CircleAvatar(
-              radius: 50.0,
-              backgroundImage: AssetImage('assets/images/image.png'), // Gambar login
-            ),
-            SizedBox(height: 16),
-            Text(
-              "Selamat Datang!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(height: 16),
             TextField(
-              controller: emailController,
+              controller: _namaController,
               decoration: InputDecoration(
-                labelText: "Email",
+                labelText: "Nama",
                 border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 16),
             TextField(
-              controller: passwordController,
+              controller: _sekolahController,
               decoration: InputDecoration(
-                labelText: "Password",
+                labelText: "Sekolah",
                 border: OutlineInputBorder(),
               ),
-              obscureText: true,
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _roleController,
+              decoration: InputDecoration(
+                labelText: "Role",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _deskripsiController,
+              decoration: InputDecoration(
+                labelText: "Deskripsi",
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 24),
             ElevatedButton(

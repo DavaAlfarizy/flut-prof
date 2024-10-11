@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart'; // Mengimpor halaman login
-import 'Page2.dart'; // Halaman Page2 (sudah ada di proyekmu)
+import 'Page2.dart'; // Pastikan Page2.dart ada di proyek Anda
 
 void main() => runApp(MyApp());
 
@@ -14,9 +14,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Halaman home tetap seperti semula
-class home extends StatelessWidget {
-  const home({super.key});
+// Penamaan kelas 'Home' dengan huruf kapital sesuai konvensi Flutter
+class Home extends StatelessWidget {
+  final String nama;
+  final String sekolah;
+  final String deskripsi;
+  final String role;
+
+  const Home({
+    Key? key,
+    required this.nama,
+    required this.sekolah,
+    required this.deskripsi,
+    required this.role,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +63,7 @@ class home extends StatelessWidget {
                         backgroundImage: AssetImage("assets/images/profil.jpg"),
                       ),
                       Text(
-                        "Muhammad Dava Al Farizy",
+                        nama,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -60,10 +71,26 @@ class home extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Murid Sekolah Menengah Kejuruan di SMK Wikrama Bogor",
+                        sekolah,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
+                          color: Color(0xFF3A6D8C),
+                        ),
+                      ),
+                      Text(
+                        deskripsi,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        " $role",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
                           color: Color(0xFF3A6D8C),
                         ),
                       ),
